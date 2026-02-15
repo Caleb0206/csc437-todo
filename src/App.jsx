@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import { nanoid } from "nanoid";
 import { TodoItem } from './TodoItem';
 import { AddTaskForm } from './AddTaskForm';
@@ -23,15 +21,22 @@ function App() {
 
   function toggleTaskCompleted(id) {
     const updatedTasks = taskList.map((task) => {
-      if(id === task.id) {
-        return {...task, isComplete: !task.isComplete};
+      if (id === task.id) {
+        return { ...task, isComplete: !task.isComplete };
       } else {
         return task;
       }
     });
     setTaskList(updatedTasks);
   }
-  
+
+  function deleteTask(id) {
+    const updatedTasks = taskList.filter(task =>
+      id !== task.id
+    );
+    setTaskList(updatedTasks);
+  }
+
   return (
     <main className="m-4">
 
@@ -46,6 +51,7 @@ function App() {
               name={task.name}
               isComplete={task.isComplete}
               onToggleCheck={toggleTaskCompleted}
+              onDelete={deleteTask}
             />
           ))}
         </ul>
