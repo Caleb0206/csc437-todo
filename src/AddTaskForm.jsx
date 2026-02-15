@@ -1,8 +1,27 @@
-export function AddTaskForm() {
+import { useState } from 'react';
+
+export function AddTaskForm({ onAddTask }) {
+    const [taskName, setTaskName] = useState("");
+
+    function handleAddClick() {
+        if (!taskName.trim()) return;
+
+        onAddTask(taskName);
+        setTaskName("");
+    }
+
     return (
         <div className="flex gap-2 mb-4"> {/* Unfortunately comments in JSX have to be done like this */}
-            <input className="border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="New task name" aria-label="New task name" />
-            <button className="
+            <input
+                value={taskName}
+                onChange={(e) => setTaskName(e.target.value)}
+                className="border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="New task name"
+                aria-label="New task name" />
+            <button
+                type="button"
+                onClick={handleAddClick}
+                className="
                 text-white 
                 bg-blue-500 
                 px-4 

@@ -15,16 +15,16 @@ const MY_INITIAL_TASK_LIST = [
 function App() {
   const [taskList, setTaskList] = useState(MY_INITIAL_TASK_LIST);
 
-  function addTask() {
-    const newTask = { id: nanoid(), name: "New Task", isComplete: false };
+  function addTask(taskName) {
+    const newTask = { id: nanoid(), name: taskName, isComplete: false };
     const taskListClone = [...taskList, newTask];
     setTaskList(taskListClone);
   }
 
   return (
-    <main className="m-4"> {/* Reminder: React code uses className instead of class */}
+    <main className="m-4">
 
-      <AddTaskForm />
+      <AddTaskForm onAddTask={addTask} />
       <section>
         <h1 className="text-xl font-bold">To do</h1>
         <ul>
@@ -36,8 +36,6 @@ function App() {
             />
           ))}
         </ul>
-        <button onClick={addTask} className="p-1 bg-blue-500 text-white">New But Can't Set Name</button>
-
       </section>
     </main>
   );
