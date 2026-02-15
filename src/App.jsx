@@ -21,6 +21,17 @@ function App() {
     setTaskList(taskListClone);
   }
 
+  function toggleTaskCompleted(id) {
+    const updatedTasks = taskList.map((task) => {
+      if(id === task.id) {
+        return {...task, isComplete: !task.isComplete};
+      } else {
+        return task;
+      }
+    });
+    setTaskList(updatedTasks);
+  }
+  
   return (
     <main className="m-4">
 
@@ -31,8 +42,10 @@ function App() {
           {taskList.map((task) => (
             <TodoItem
               key={task.id}
+              id={task.id}
               name={task.name}
               isComplete={task.isComplete}
+              onToggleCheck={toggleTaskCompleted}
             />
           ))}
         </ul>
