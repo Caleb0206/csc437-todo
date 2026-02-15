@@ -6,7 +6,15 @@ import { TodoItem } from './TodoItem';
 import { AddTaskForm } from './AddTaskForm';
 import './App.css'
 
+const MY_INITIAL_TASK_LIST = [
+  { id: "todo-0", name: "Eat", isComplete: true },
+  { id: "todo-1", name: "Sleep", isComplete: false },
+  { id: "todo-2", name: "Repeat", isComplete: false }
+]
+
 function App() {
+  const [taskList, setTaskList] = useState(MY_INITIAL_TASK_LIST);
+
   return (
     <main className="m-4"> {/* Reminder: React code uses className instead of class */}
 
@@ -14,10 +22,15 @@ function App() {
       <section>
         <h1 className="text-xl font-bold">To do</h1>
         <ul>
-          <TodoItem name="Eat" isComplete={true} />
-          <TodoItem name="Sleep" isComplete={false} />
-          <TodoItem name="Repeat" isComplete={false} />
+          {taskList.map((task) => (
+            <TodoItem
+              key={task.id}
+              name={task.name}
+              isComplete={task.isComplete}
+            />
+          ))}
         </ul>
+        
       </section>
     </main>
   );
