@@ -1,41 +1,26 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+
+import { TodoItem } from './TodoItem';
+import { AddTaskForm } from './AddTaskForm';
 import './App.css'
 
 function App() {
-    return (
-        <main className="m-4"> {/* Reminder: React code uses className instead of class */}
-            <div> {/* Unfortunately comments in JSX have to be done like this */}
-                <input placeholder="New task name" aria-label="New task name" />
-                <button>Add task</button>
-            </div>
+  return (
+    <main className="m-4"> {/* Reminder: React code uses className instead of class */}
 
-            <section>
-                <h1 className="text-xl font-bold">To do</h1>
-                <ul>
-                    <li>
-                        <label>
-                            <input type="checkbox"/> Eat
-                        </label>
-                        <button>Delete</button>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox"/> Sleep
-                        </label>
-                        <button>Delete</button>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="checkbox"/> Repeat
-                        </label>
-                        <button>Delete</button>
-                    </li>
-                </ul>
-            </section>
-        </main>
-    );
+      <AddTaskForm />
+      <section>
+        <h1 className="text-xl font-bold">To do</h1>
+        <ul>
+          <TodoItem name="Eat" isComplete={true} />
+          <TodoItem name="Sleep" isComplete={false} />
+          <TodoItem name="Repeat" isComplete={false} />
+        </ul>
+      </section>
+    </main>
+  );
 }
 
 export default App;
