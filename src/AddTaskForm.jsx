@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 export function AddTaskForm({ onAddTask }) {
     const [taskName, setTaskName] = useState("");
-
+    const isDisabled = !taskName.trim();
     function handleAddClick() {
-        if (!taskName.trim()) return;
+        if (isDisabled) return;
 
         onAddTask(taskName);
         setTaskName("");
@@ -21,16 +21,19 @@ export function AddTaskForm({ onAddTask }) {
             <button
                 type="button"
                 onClick={handleAddClick}
-                className="
+                disabled={isDisabled}
+                className={`
                 text-white 
-                bg-blue-500 
+              
                 px-4 
                 py-2 
                 rounded-md 
                 transition-colors 
-                hover:bg-blue-600 
-                active:bg-blue-700 
-                "
+                ${isDisabled ?
+                        "bg-blue-300 cursor-not-allowed"
+                        : "bg-blue-500 hover:bg-blue-600 active:bg-blue-700"
+                    }
+                `}
             >
                 Add task
             </button>

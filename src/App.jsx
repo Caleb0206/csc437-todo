@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { nanoid } from "nanoid";
 import { TodoItem } from './TodoItem';
 import { AddTaskForm } from './AddTaskForm';
+import { Modal } from './Modal';
 import './App.css';
 
 const MY_INITIAL_TASK_LIST = [
@@ -12,11 +13,13 @@ const MY_INITIAL_TASK_LIST = [
 
 function App() {
   const [taskList, setTaskList] = useState(MY_INITIAL_TASK_LIST);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function addTask(taskName) {
     const newTask = { id: nanoid(), name: taskName, isComplete: false };
     const taskListClone = [...taskList, newTask];
     setTaskList(taskListClone);
+    setIsModalOpen(false);
   }
 
   function toggleTaskCompleted(id) {
@@ -39,9 +42,16 @@ function App() {
 
   return (
     <main className="m-4">
+      <Modal headerLabel="New Task" isOpen={isModalOpen} onCloseRequested={() => setIsModalOpen(false)}>
+        <AddTaskForm onAddTask={addTask} />
+      </Modal>
 
-      <AddTaskForm onAddTask={addTask} />
       <section>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
+          onClick={() => setIsModalOpen(true)}>
+          Add Task
+        </button>
         <h1 className="text-xl font-bold">To do</h1>
         <ul>
           {taskList.map((task) => (
